@@ -13,28 +13,34 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name = "tb_Category")
-public class Category implements Serializable{
+@Table(name = "tb_Product")
+public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private String description;
+	private Double price;
+	private String imgUrl;
 	
 	@Transient
-	private Set<Product> products = new HashSet<Product>();
+	private Set<Category> categories = new HashSet<Category>(); 
 	
-	public Category() {
+	public Product() {
 		super();
 	}
 	
-	public Category(Long id, String name) {
+	public Product(Long id, String name, String description, Double price, String imgUrl) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.imgUrl = imgUrl;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -51,8 +57,32 @@ public class Category implements Serializable{
 		return this.name;
 	}
 	
-	public Set<Product> getProducts(){
-		return this.products;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getDescription() {
+		return this.description;
+	}
+	
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	
+	public Double getPrice() {
+		return this.price;
+	}
+	
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+	
+	public String getImgUrl() {
+		return this.imgUrl;
+	}
+	
+	public Set<Category> getCategories(){
+		return this.categories;
 	}
 
 	@Override
@@ -71,7 +101,7 @@ public class Category implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		
-		Category other = (Category) obj;
+		Product other = (Product) obj;
 		return Objects.equals(id, other.id);
 	}
 }

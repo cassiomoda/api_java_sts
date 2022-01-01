@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.moda.api_java_sts.entities.Category;
 import com.moda.api_java_sts.entities.Order;
+import com.moda.api_java_sts.entities.Product;
 import com.moda.api_java_sts.entities.User;
 import com.moda.api_java_sts.entities.enums.OrderStatus;
 import com.moda.api_java_sts.repositories.CategoryRepository;
 import com.moda.api_java_sts.repositories.OrderRepository;
+import com.moda.api_java_sts.repositories.ProductRepository;
 import com.moda.api_java_sts.repositories.UserRepository;
 
 @Configuration
@@ -25,6 +27,8 @@ public class TestConfig implements CommandLineRunner {
 	private OrderRepository orderRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
+	private ProductRepository productRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -44,5 +48,13 @@ public class TestConfig implements CommandLineRunner {
 		Category games = new Category(null, "Games");
 		
 		categoryRepository.saveAll(Arrays.asList(eletronics, books, games));
+		
+		Product lotr = new Product(null, "The Lord of the Rings", "book The Lord of the Rings", 90.5, ""); 
+		Product smartTv = new Product(null, "Smart TV", "Smart TV top", 2190.0, ""); 
+		Product macBkPro = new Product(null, "Macbook Pro", "Macbook Pro, you pay a lot for someting you could buy for a very low price", 1250.0, ""); 
+		Product pcGamer = new Product(null, "PC Gamer", "Yes, it has lots of RGB!", 1200.0, ""); 
+		Product railsOfDummies = new Product(null, "Rails for Dummies", "I think you need it.", 100.99, ""); 
+		
+		productRepository.saveAll(Arrays.asList(lotr, smartTv, macBkPro, pcGamer, railsOfDummies));
 	}
 }
