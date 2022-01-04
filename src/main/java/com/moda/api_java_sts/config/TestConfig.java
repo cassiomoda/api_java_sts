@@ -55,6 +55,13 @@ public class TestConfig implements CommandLineRunner {
 		Product pcGamer = new Product(null, "PC Gamer", "Yes, it has lots of RGB!", 1200.0, ""); 
 		Product railsOfDummies = new Product(null, "Rails for Dummies", "I think you need it.", 100.99, ""); 
 		
+		lotr.getCategories().add(books);
+		smartTv.getCategories().add(eletronics);
+		smartTv.getCategories().add(games);
+		macBkPro.getCategories().add(eletronics);
+		pcGamer.getCategories().add(games);
+		railsOfDummies.getCategories().add(books);
+		
 		productRepository.saveAll(Arrays.asList(lotr, smartTv, macBkPro, pcGamer, railsOfDummies));
 	}
 }
