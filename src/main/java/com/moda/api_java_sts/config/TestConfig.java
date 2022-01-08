@@ -10,10 +10,13 @@ import org.springframework.context.annotation.Profile;
 
 import com.moda.api_java_sts.entities.Category;
 import com.moda.api_java_sts.entities.Order;
+import com.moda.api_java_sts.entities.OrderItem;
+import com.moda.api_java_sts.entities.Payment;
 import com.moda.api_java_sts.entities.Product;
 import com.moda.api_java_sts.entities.User;
 import com.moda.api_java_sts.entities.enums.OrderStatus;
 import com.moda.api_java_sts.repositories.CategoryRepository;
+import com.moda.api_java_sts.repositories.OrderItemRepository;
 import com.moda.api_java_sts.repositories.OrderRepository;
 import com.moda.api_java_sts.repositories.ProductRepository;
 import com.moda.api_java_sts.repositories.UserRepository;
@@ -25,6 +28,8 @@ public class TestConfig implements CommandLineRunner {
 	private UserRepository userRepository;
 	@Autowired
 	private OrderRepository orderRepository;
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
 	@Autowired
@@ -63,5 +68,17 @@ public class TestConfig implements CommandLineRunner {
 		railsOfDummies.getCategories().add(books);
 		
 		productRepository.saveAll(Arrays.asList(lotr, smartTv, macBkPro, pcGamer, railsOfDummies));
+		
+		OrderItem orderItem1 = new OrderItem(order1, lotr, 2, lotr.getPrice()); 
+		OrderItem orderItem2 = new OrderItem(order1, macBkPro, 1, macBkPro.getPrice()); 
+		OrderItem orderItem3 = new OrderItem(order2, macBkPro, 2, macBkPro.getPrice()); 
+		OrderItem orderItem4 = new OrderItem(order3, railsOfDummies, 2, railsOfDummies.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3, orderItem4));
+		
+		Payment payment1 = new Payment(null, Instant.parse("2019-06-20T20:53:07Z"), order1);
+		
+		order1.setPayment(payment1);
+		orderRepository.save(order1);
 	}
 }
